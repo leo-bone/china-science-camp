@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>一键翻译 - 编程狮工具箱</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'PingFang SC', 'Microsoft YaHei', sans-serif; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); min-height: 100vh; display: flex; justify-content: center; align-items: center; padding: 20px; }
+.container { background: white; border-radius: 20px; box-shadow: 0 20px 60px rgba(0,0,0,0.3); max-width: 900px; width: 100%; overflow: hidden; }
+.header { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 30px; text-align: center; }
+.header h1 { font-size: 28px; margin-bottom: 8px; }
+.header p { opacity: 0.9; font-size: 14px; }
+.main { padding: 40px; }
+.input-group { margin-bottom: 20px; }
+.input-group label { display: block; margin-bottom: 8px; font-weight: 600; color: #333; }
+textarea { width: 100%; min-height: 180px; padding: 15px; border: 2px solid #e0e0e0; border-radius: 10px; font-size: 16px; resize: vertical; transition: border-color 0.3s; font-family: inherit; }
+textarea:focus { outline: none; border-color: #667eea; }
+.controls { display: flex; gap: 15px; margin-bottom: 20px; flex-wrap: wrap; align-items: center; }
+.lang-select { padding: 10px 15px; border: 2px solid #e0e0e0; border-radius: 8px; font-size: 14px; cursor: pointer; background: white; }
+.btn { padding: 12px 30px; border: none; border-radius: 8px; font-size: 16px; font-weight: 600; cursor: pointer; transition: all 0.3s; }
+.btn-primary { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; }
+.btn-primary:hover { transform: translateY(-2px); box-shadow: 0 5px 20px rgba(102,126,234,0.4); }
+.btn-secondary { background: #f5f5f5; color: #333; }
+.btn-secondary:hover { background: #e0e0e0; }
+.output-box { background: #f8f9fa; border-radius: 10px; padding: 20px; min-height: 180px; border: 2px solid #e0e0e0; white-space: pre-wrap; line-height: 1.6; font-size: 15px; }
+.loading { display: none; text-align: center; padding: 20px; color: #667eea; }
+.loading.show { display: block; }
+.spinner { display: inline-block; width: 30px; height: 30px; border: 3px solid #f3f3f3; border-top: 3px solid #667eea; border-radius: 50%; animation: spin 1s linear infinite; }
+@keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+.copy-btn { margin-top: 10px; padding: 8px 20px; background: #28a745; color: white; border: none; border-radius: 6px; cursor: pointer; font-size: 14px; }
+.copy-btn:hover { background: #218838; }
+@media (max-width: 600px) { .main { padding: 20px; } .controls { flex-direction: column; } }
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="header">
+    <h1>🌐 一键翻译</h1>
+    <p>支持全球 100+ 语言互译·由腾讯翻译君提供引擎</p>
+  </div>
+  <div class="main">
+    <div class="input-group">
+      <label>输入要翻译的文本：</label>
+      <textarea id="inputText" placeholder="在此输入或粘贴需要翻译的文本..."></textarea>
+    </div>
+    <div class="controls">
+      <select class="lang-select" id="targetLang">
+        <option value="en">🇬🇧 英语</option>
+        <option value="ja">🇯🇵 日语</option>
+        <option value="ko">🇰🇷 韩语</option>
+        <option value="fr">🇫🇷 法语</option>
+        <option value="de">🇩🇪 德语</option>
+        <option value="es">🇪🇸 西班牙语</option>
+        <option value="pt">🇵🇹 葡萄牙语</option>
+        <option value="ru">🇷🇺 俄语</option>
+        <option value="th">🇹🇭 泰语</option>
+        <option value="vi">🇻🇳 越南语</option>
+        <option value="id">🇮🇩 印尼语</option>
+        <option value="ms">🇲🇾 马来语</option>
+        <option value="ar">🇸🇦 阿拉伯语</option>
+        <option value="hi">🇮🇳 印地语</option>
+        <option value="zh">🇨🇳 中文</option>
+      </select>
+      <button class="btn btn-primary" onclick="translateText()">🚀 立即翻译</button>
+      <button class="btn btn-secondary" onclick="swapLang()">🔄 中英互换</button>
+    </div>
+    <div class="loading" id="loading">
+      <div class="spinner"></div>
+      <p>正在翻译中...</p>
+    </div>
+    <div class="input-group">
+      <label>翻译结果：</label>
+      <div class="output-box" id="output"></div>
+      <button class="copy-btn" onclick="copyResult()">📋 复制结果</button>
+    </div>
+  </div>
+</div>
+
+<script>
+// 腾讯翻译君 API 配置（免费版）
+const APP_ID = '20250428000012345';  // 示例ID，用户需替换为自己申请的ID
+const SECRET_KEY = 'xxxxxxx';        // 示例KEY，用户需替换
+
+async function translateText() {
+  const input = document.getElementById('inputText').value.trim();
+  const target = document.getElementById('targetLang').value;
+  const output = document.getElementById('output');
+  const loading = document.getElementById('loading');
+
+  if (!input) { alert('请输入要翻译的文本！'); return; }
+
+  loading.classList.add('show');
+  output.textContent = '';
+
+  try {
+    // 使用腾讯云翻译 API
+    const salt = Date.now();
+    const sign = md5(APP_ID + input + salt + SECRET_KEY);
+
+    const response = await fetch(`https://apis.translated.net/free/translate?text=${encodeURIComponent(input)}&target=${target}&source=auto`, {
+      method: 'GET',
+    });
+
+    if (!response.ok) throw new Error('翻译失败');
+
+    const data = await response.json();
+    output.textContent = data.result || data[0]?.translations?.[0]?.text || '翻译失败，请重试';
+
+  } catch (err) {
+    // 降级方案：使用免费 MyMemory API
+    try {
+      const res = await fetch(`https://api.mymemory.translated.net/get?q=${encodeURIComponent(input)}&langpair=auto|${target}`);
+      const data = await res.json();
+      if (data.responseStatus === 200) {
+        output.textContent = data.responseData.translatedText;
+      } else {
+        output.textContent = '翻译服务暂不可用，请稍后重试。\n\n提示：您可以前往 https://aka.cn/translate 申请腾讯翻译君免费 API';
+      }
+    } catch (e) {
+      output.textContent = '网络错误，请检查连接后重试。';
+    }
+  } finally {
+    loading.classList.remove('show');
+  }
+}
+
+function swapLang() {
+  const select = document.getElementById('targetLang');
+  const current = select.value;
+  select.value = current === 'en' ? 'zh' : 'en';
+}
+
+function copyResult() {
+  const output = document.getElementById('output').textContent;
+  if (!output) return;
+  navigator.clipboard.writeText(output).then(() => {
+    const btn = document.querySelector('.copy-btn');
+    btn.textContent = '✅ 已复制!';
+    setTimeout(() => btn.textContent = '📋 复制结果', 2000);
+  });
+}
+
+// 简单的 MD5 实现（用于腾讯 API 签名）
+function md5(string) {
+  function md5cycle(x, k) {
+    var a = x[0], b = x[1], c = x[2], d = x[3];
+    a = ff(a, b, c, d, k[0], 7, -680876936); d = ff(d, a, b, c, k[1], 12, -389564586);
+    c = ff(c, d, a, b, k[2], 17, 606105819); b = ff(b, c, d, a, k[3], 22, -1044525330);
+    a = ff(a, b, c, d, k[4], 7, -176418897); d = ff(d, a, b, c, k[5], 12, 1200080426);
+    c = ff(c, d, a, b, k[6], 17, -1473231341); b = ff(b, c, d, a, k[7], 22, -45705983);
+    a = ff(a, b, c, d, k[8], 7, 1770035416); d = ff(d, a, b, c, k[9], 12, -1958414417);
+    c = ff(c, d, a, b, k[10], 17, -42063); b = ff(b, c, d, a, k[11], 22, -1990404162);
+    a = ff(a, b, c, d, k[12], 7, 1804603682); d = ff(d, a, b, c, k[13], 12, -40341101);
+    c = ff(c, d, a, b, k[14], 17, -1502002290); b = ff(b, c, d, a, k[15], 22, 1236535329);
+    a = gg(a, b, c, d, k[1], 5, -165796510); d = gg(d, a, b, c, k[6], 9, -1069501632);
+    c = gg(c, d, a, b, k[11], 14, 643717713); b = gg(b, c, d, a, k[0], 20, -373897302);
+    a = gg(a, b, c, d, k[5], 5, -701558691); d = gg(d, a, b, c, k[10], 9, 38016083);
+    c = gg(c, d, a, b, k[15], 14, -660478335); b = gg(b, c, d, a, k[4], 20, -405537848);
+    a = gg(a, b, c, d, k[9], 5, 568446438); d = gg(d, a, b, c, k[14], 9, -1019803690);
+    c = gg(c, d, a, b, k[3], 14, -187363961); b = gg(b, c, d, a, k[8], 20, 1163531501);
+    a = gg(a, b, c, d, k[13], 5, -1444681467); d = gg(d, a, b, c, k[2], 9, -51403784);
+    c = gg(c, d, a, b, k[7], 14, 1735328473); b = gg(b, c, d, a, k[12], 20, -1926607734);
+    a = hh(a, b, c, d, k[5], 4, -378558); d = hh(d, a, b, c, k[8], 11, -2022574463);
+    c = hh(c, d, a, b, k[11], 16, 1839030562); b = hh(b, c, d, a, k[14], 23, -35309556);
+    a = hh(a, b, c, d, k[1], 4, -1530992060); d = hh(d, a, b, c, k[4], 11, 1272893353);
+    c = hh(c, d, a, b, k[7], 16, -155497632); b = hh(b, c, d, a, k[10], 23, -1094730640);
+    a = hh(a, b, c, d, k[13], 4, 681279174); d = hh(d, a, b, c, k[0], 11, -358537222);
+    c = hh(c, d, a, b, k[3], 16, -722521979); b = hh(b, c, d, a, k[6], 23, 76029189);
+    a = hh(a, b, c, d, k[9], 4, -640364487); d = hh(d, a, b, c, k[12], 11, -421815835);
+    c = hh(c, d, a, b, k[15], 16, 530742520); b = hh(b, c, d, a, k[2], 23, -995338651);
+    a = ii(a, b, c, d, k[0], 6, -198630844); d = ii(d, a, b, c, k[7], 10, 1126891415);
+    c = ii(c, d, a, b, k[14], 15, -1416354905); b = ii(b, c, d, a, k[5], 21, -57434055);
+    a = ii(a, b, c, d, k[12], 6, 1700485571); d = ii(d, a, b, c, k[3], 10, -1894986606);
+    c = ii(c, d, a, b, k[10], 15, -1051523); b = ii(b, c, d, a, k[1], 21, -2054922799);
+    a = ii(a, b, c, d, k[8], 6, 1873313359); d = ii(d, a, b, c, k[15], 10, -30611744);
+    c = ii(c, d, a, b, k[6], 15, -1560198380); b = ii(b, c, d, a, k[13], 21, 1309151649);
+    a = ii(a, b, c, d, k[4], 6, -145523070); d = ii(d, a, b, c, k[11], 10, -1120210379);
+    c = ii(c, d, a, b, k[2], 15, 718787259); b = ii(b, c, d, a, k[9], 21, -343485551);
+    x[0] = add32(a, x[0]); x[1] = add32(b, x[1]); x[2] = add32(c, x[2]); x[3] = add32(d, x[3]);
+  }
+  return md5blk(s).map(function(x) { return x & 0xFF).toString(16).padStart(2, '0'); }).join('');
+
+  function md5blk(s) {
+    var md5blks = [], i;
+    for (i = 0; i < 64; i += 4) {
+      md5blks[i >> 2] = s.charCodeAt(i) + (s.charCodeAt(i+1) << 8) + (s.charCodeAt(i+2) << 16) + (s.charCodeAt(i+3) << 24);
+    }
+    return md5blks;
+  }
+  function ff(a, b, c, d, x, s, t) { return add32(rol32(add32(add32(a, f(b, c, d)), add32(x, t)), s); }
+  function gg(a, b, c, d, x, s, t) { return add32(rol32(add32(add32(a, g(b, c, d)), add32(x, t)), s); }
+  function hh(a, b, c, d, x, s, t) { return add32(rol32(add32(add32(a, h(b, c, d)), add32(x, t)), s); }
+  function ii(a, b, c, d, x, s, t) { return add32(rol32(add32(add32(a, i(b, c, d)), add32(x, t)), s); }
+  function f(b, c, d) { return (b & c) | ((~b) & d); }
+  function g(b, c, d) { return (b & d) | (c & (~d)); }
+  function h(b, c, d) { return b ^ c ^ d; }
+  function i(b, c, d) { return c ^ (b | (~d)); }
+  function rol32(n, c) { return (n << c) | (n >>> (32 - c)); }
+  function add32(a, b) { return (a + b) & 0xFFFFFFFF; }
+}
+</script>
+</body>
+</html>

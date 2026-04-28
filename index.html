@@ -1,0 +1,768 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>China Science Camp — World-Class Tech Immersion for Future Leaders</title>
+  <meta name="description" content="Premium science and technology immersion camps in China for Middle Eastern families. Visit DJI, Huawei, BYD, top universities. Halal-friendly, VIP service." />
+  <style>
+    /* ===== RESET & BASE ===== */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      color: #1a1a2e;
+      background: #fff;
+      line-height: 1.6;
+    }
+    a { text-decoration: none; color: inherit; }
+    img { max-width: 100%; display: block; }
+
+    /* ===== COLORS ===== */
+    :root {
+      --blue: #0a2463;
+      --blue-light: #1e4d8c;
+      --gold: #c9a84c;
+      --gold-light: #f0d78c;
+      --cream: #faf8f0;
+      --gray: #f4f4f8;
+      --text: #1a1a2e;
+      --text-light: #555;
+    }
+
+    /* ===== LAYOUT ===== */
+    .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+    section { padding: 80px 0; }
+
+    /* ===== NAV ===== */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+      background: rgba(255,255,255,0.97); backdrop-filter: blur(12px);
+      border-bottom: 1px solid #eee;
+      transition: box-shadow 0.3s;
+    }
+    nav.scrolled { box-shadow: 0 2px 20px rgba(0,0,0,0.08); }
+    .nav-inner {
+      max-width: 1200px; margin: 0 auto; padding: 0 24px;
+      display: flex; align-items: center; justify-content: space-between;
+      height: 64px;
+    }
+    .logo { font-size: 1.25rem; font-weight: 800; color: var(--blue); letter-spacing: -0.5px; }
+    .logo span { color: var(--gold); }
+    .nav-links { display: flex; gap: 28px; list-style: none; }
+    .nav-links a { font-size: 0.9rem; font-weight: 500; color: var(--text-light); transition: color 0.2s; }
+    .nav-links a:hover { color: var(--blue); }
+    .nav-cta {
+      background: var(--blue); color: #fff; padding: 8px 20px; border-radius: 6px;
+      font-size: 0.85rem; font-weight: 600; transition: background 0.2s;
+    }
+    .nav-cta:hover { background: var(--blue-light); }
+    .mobile-toggle { display: none; background: none; border: none; font-size: 1.5rem; cursor: pointer; }
+
+    /* ===== HERO ===== */
+    .hero {
+      min-height: 100vh; display: flex; align-items: center;
+      background: linear-gradient(135deg, var(--blue) 0%, #16213e 60%, #0f3460 100%);
+      color: #fff; position: relative; overflow: hidden;
+    }
+    .hero::before {
+      content: ''; position: absolute; inset: 0;
+      background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="%23ffffff" fill-opacity="0.03" d="M0,192L48,176C96,160,192,128,288,138.7C384,149,480,203,576,213.3C672,224,768,192,864,176C960,160,1056,160,1152,149.3C1248,139,1344,117,1392,106.7L1440,96L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path></svg>') bottom / cover no-repeat;
+      pointer-events: none;
+    }
+    .hero-inner { max-width: 1200px; margin: 0 auto; padding: 120px 24px 80px; position: relative; z-index: 1; }
+    .hero-badge {
+      display: inline-block; background: rgba(201,168,76,0.2); color: var(--gold-light);
+      padding: 6px 16px; border-radius: 20px; font-size: 0.8rem; font-weight: 600;
+      letter-spacing: 0.5px; margin-bottom: 24px; border: 1px solid rgba(201,168,76,0.3);
+    }
+    .hero h1 { font-size: clamp(2.5rem, 5vw, 4.2rem); font-weight: 800; line-height: 1.15; margin-bottom: 24px; }
+    .hero h1 span { color: var(--gold); }
+    .hero-sub { font-size: 1.15rem; color: rgba(255,255,255,0.75); max-width: 580px; margin-bottom: 40px; line-height: 1.7; }
+    .hero-buttons { display: flex; gap: 16px; flex-wrap: wrap; }
+    .btn-primary {
+      background: var(--gold); color: var(--blue); padding: 14px 32px; border-radius: 8px;
+      font-weight: 700; font-size: 1rem; transition: transform 0.2s, box-shadow 0.2s;
+      border: none; cursor: pointer;
+    }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(201,168,76,0.35); }
+    .btn-secondary {
+      background: transparent; color: #fff; padding: 14px 32px; border-radius: 8px;
+      font-weight: 600; font-size: 1rem; border: 2px solid rgba(255,255,255,0.3);
+      cursor: pointer; transition: border-color 0.2s;
+    }
+    .btn-secondary:hover { border-color: var(--gold); }
+
+    /* ===== STATS BAR ===== */
+    .stats-bar {
+      background: #fff; margin-top: -60px; position: relative; z-index: 2;
+      border-radius: 16px; box-shadow: 0 20px 60px rgba(0,0,0,0.1);
+      display: grid; grid-template-columns: repeat(4, 1fr);
+    }
+    .stat-item { padding: 36px 24px; text-align: center; border-right: 1px solid #eee; }
+    .stat-item:last-child { border-right: none; }
+    .stat-number { font-size: 2rem; font-weight: 800; color: var(--blue); }
+    .stat-label { font-size: 0.85rem; color: var(--text-light); margin-top: 4px; }
+
+    /* ===== SECTIONS COMMON ===== */
+    .section-tag {
+      display: inline-block; font-size: 0.75rem; font-weight: 700; letter-spacing: 2px;
+      text-transform: uppercase; color: var(--gold); margin-bottom: 12px;
+    }
+    .section-title { font-size: clamp(1.8rem, 3vw, 2.5rem); font-weight: 800; color: var(--blue); margin-bottom: 16px; line-height: 1.2; }
+    .section-desc { font-size: 1.05rem; color: var(--text-light); max-width: 600px; margin-bottom: 48px; }
+
+    /* ===== WHY CHINA ===== */
+    .why-china { background: var(--cream); }
+    .why-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; }
+    .why-card {
+      background: #fff; border-radius: 16px; padding: 36px 28px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.05); transition: transform 0.3s, box-shadow 0.3s;
+    }
+    .why-card:hover { transform: translateY(-4px); box-shadow: 0 12px 40px rgba(0,0,0,0.1); }
+    .why-icon {
+      width: 56px; height: 56px; border-radius: 14px; display: flex; align-items: center;
+      justify-content: center; font-size: 1.5rem; margin-bottom: 20px;
+    }
+    .why-card h3 { font-size: 1.15rem; font-weight: 700; margin-bottom: 10px; color: var(--blue); }
+    .why-card p { font-size: 0.9rem; color: var(--text-light); line-height: 1.7; }
+
+    /* ===== PROGRAMS / ROUTES ===== */
+    .programs { background: #fff; }
+    .route-tabs { display: flex; gap: 12px; margin-bottom: 40px; flex-wrap: wrap; }
+    .route-tab {
+      padding: 10px 24px; border-radius: 8px; font-weight: 600; font-size: 0.9rem;
+      cursor: pointer; border: 2px solid #ddd; background: #fff; color: var(--text-light);
+      transition: all 0.2s;
+    }
+    .route-tab.active, .route-tab:hover { border-color: var(--blue); color: var(--blue); background: rgba(10,36,99,0.04); }
+    .route-card {
+      background: var(--gray); border-radius: 20px; overflow: hidden;
+      display: grid; grid-template-columns: 1fr 1fr; gap: 0;
+    }
+    .route-info { padding: 48px; }
+    .route-tag {
+      display: inline-block; font-size: 0.75rem; font-weight: 700; letter-spacing: 1px;
+      text-transform: uppercase; color: var(--gold); background: rgba(201,168,76,0.12);
+      padding: 4px 12px; border-radius: 4px; margin-bottom: 16px;
+    }
+    .route-info h3 { font-size: 1.6rem; font-weight: 800; color: var(--blue); margin-bottom: 12px; }
+    .route-info .route-desc { color: var(--text-light); font-size: 0.95rem; margin-bottom: 24px; line-height: 1.7; }
+    .route-highlights { list-style: none; margin-bottom: 28px; }
+    .route-highlights li {
+      padding: 8px 0; font-size: 0.9rem; color: var(--text);
+      border-bottom: 1px solid #e8e8e8; display: flex; align-items: center; gap: 10px;
+    }
+    .route-highlights li::before { content: '✓'; color: var(--gold); font-weight: 800; font-size: 1rem; }
+    .route-meta { display: flex; gap: 24px; margin-bottom: 28px; }
+    .route-meta-item { font-size: 0.85rem; }
+    .route-meta-item strong { display: block; font-size: 1.1rem; color: var(--blue); }
+    .route-visual {
+      background: linear-gradient(135deg, var(--blue) 0%, #16213e 100%);
+      display: flex; align-items: center; justify-content: center;
+      padding: 48px; color: #fff; flex-direction: column; text-align: center;
+    }
+    .route-visual-icon { font-size: 4rem; margin-bottom: 20px; }
+    .route-visual h4 { font-size: 1.3rem; font-weight: 700; margin-bottom: 8px; }
+    .route-visual p { font-size: 0.9rem; opacity: 0.7; }
+
+    /* ===== CULTURAL ===== */
+    .cultural { background: var(--blue); color: #fff; }
+    .cultural .section-tag { color: var(--gold-light); }
+    .cultural .section-title { color: #fff; }
+    .cultural .section-desc { color: rgba(255,255,255,0.7); }
+    .cultural-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; }
+    .cultural-card {
+      background: rgba(255,255,255,0.08); border-radius: 16px; padding: 32px 24px;
+      border: 1px solid rgba(255,255,255,0.1); transition: background 0.3s;
+    }
+    .cultural-card:hover { background: rgba(255,255,255,0.14); }
+    .cultural-card .c-icon { font-size: 2rem; margin-bottom: 16px; }
+    .cultural-card h4 { font-size: 1rem; font-weight: 700; margin-bottom: 8px; }
+    .cultural-card p { font-size: 0.85rem; color: rgba(255,255,255,0.65); line-height: 1.6; }
+
+    /* ===== PRICING ===== */
+    .pricing { background: var(--cream); }
+    .pricing-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; align-items: start; }
+    .price-card {
+      background: #fff; border-radius: 20px; padding: 40px 32px; position: relative;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.05); transition: transform 0.3s;
+    }
+    .price-card:hover { transform: translateY(-4px); }
+    .price-card.featured {
+      border: 2px solid var(--gold); transform: scale(1.03);
+    }
+    .price-card.featured::before {
+      content: 'MOST POPULAR'; position: absolute; top: -12px; left: 50%; transform: translateX(-50%);
+      background: var(--gold); color: var(--blue); font-size: 0.7rem; font-weight: 800;
+      padding: 4px 16px; border-radius: 4px; letter-spacing: 1px;
+    }
+    .price-card h3 { font-size: 1.3rem; font-weight: 800; color: var(--blue); margin-bottom: 8px; }
+    .price-card .price-subtitle { font-size: 0.85rem; color: var(--text-light); margin-bottom: 24px; }
+    .price-amount { font-size: 2.5rem; font-weight: 800; color: var(--blue); margin-bottom: 4px; }
+    .price-amount span { font-size: 0.9rem; font-weight: 400; color: var(--text-light); }
+    .price-per { font-size: 0.85rem; color: var(--text-light); margin-bottom: 28px; }
+    .price-features { list-style: none; margin-bottom: 32px; }
+    .price-features li {
+      padding: 8px 0; font-size: 0.9rem; color: var(--text);
+      border-bottom: 1px solid #f0f0f0; display: flex; align-items: center; gap: 10px;
+    }
+    .price-features li::before { content: '✓'; color: #2ecc71; font-weight: 700; }
+    .price-btn {
+      display: block; text-align: center; width: 100%; padding: 14px; border-radius: 8px;
+      font-weight: 700; font-size: 0.95rem; cursor: pointer; transition: all 0.2s;
+      border: 2px solid var(--blue); background: transparent; color: var(--blue);
+    }
+    .price-btn:hover { background: var(--blue); color: #fff; }
+    .price-card.featured .price-btn { background: var(--gold); color: var(--blue); border-color: var(--gold); }
+    .price-card.featured .price-btn:hover { background: var(--gold-light); }
+
+    /* ===== TESTIMONIAL ===== */
+    .testimonial { background: #fff; }
+    .testimonial-inner {
+      max-width: 800px; margin: 0 auto; text-align: center;
+    }
+    .testimonial-quote { font-size: 1.2rem; color: var(--text-light); line-height: 1.8; font-style: italic; margin-bottom: 28px; }
+    .testimonial-author { display: flex; align-items: center; justify-content: center; gap: 16px; }
+    .testimonial-avatar {
+      width: 56px; height: 56px; border-radius: 50%; background: var(--blue); color: #fff;
+      display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 1.1rem;
+    }
+    .testimonial-name { font-weight: 700; color: var(--blue); text-align: left; }
+    .testimonial-role { font-size: 0.85rem; color: var(--text-light); text-align: left; }
+
+    /* ===== FAQ ===== */
+    .faq { background: var(--gray); }
+    .faq-list { max-width: 800px; margin: 0 auto; }
+    .faq-item {
+      background: #fff; border-radius: 12px; margin-bottom: 12px; overflow: hidden;
+    }
+    .faq-question {
+      width: 100%; padding: 20px 24px; display: flex; align-items: center; justify-content: space-between;
+      font-size: 1rem; font-weight: 600; color: var(--blue); background: none;
+      border: none; cursor: pointer; text-align: left;
+    }
+    .faq-answer { padding: 0 24px 20px; font-size: 0.95rem; color: var(--text-light); line-height: 1.7; display: none; }
+    .faq-item.open .faq-answer { display: block; }
+    .faq-toggle { font-size: 1.2rem; transition: transform 0.3s; }
+    .faq-item.open .faq-toggle { transform: rotate(45deg); }
+
+    /* ===== CTA ===== */
+    .cta {
+      background: linear-gradient(135deg, var(--blue) 0%, #16213e 100%);
+      color: #fff; text-align: center;
+    }
+    .cta h2 { font-size: clamp(1.8rem, 3vw, 2.5rem); font-weight: 800; margin-bottom: 16px; }
+    .cta p { font-size: 1.05rem; color: rgba(255,255,255,0.7); margin-bottom: 36px; max-width: 600px; margin-left: auto; margin-right: auto; }
+    .cta-buttons { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+    .cta-whatsapp {
+      background: #25d366; color: #fff; padding: 14px 32px; border-radius: 8px;
+      font-weight: 700; font-size: 1rem; display: inline-flex; align-items: center; gap: 8px;
+      transition: transform 0.2s;
+    }
+    .cta-whatsapp:hover { transform: translateY(-2px); }
+    .cta-email {
+      background: transparent; color: #fff; padding: 14px 32px; border-radius: 8px;
+      font-weight: 600; font-size: 1rem; border: 2px solid rgba(255,255,255,0.3);
+      cursor: pointer; transition: border-color 0.2s;
+    }
+    .cta-email:hover { border-color: var(--gold); }
+
+    /* ===== FOOTER ===== */
+    footer { background: #0a0a1a; color: rgba(255,255,255,0.6); padding: 48px 0 24px; }
+    .footer-inner { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+    .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 40px; margin-bottom: 40px; }
+    .footer-brand { font-size: 1.1rem; font-weight: 800; color: #fff; margin-bottom: 12px; }
+    .footer-brand span { color: var(--gold); }
+    .footer-desc { font-size: 0.85rem; line-height: 1.7; }
+    .footer-col h4 { font-size: 0.85rem; font-weight: 700; color: #fff; margin-bottom: 16px; text-transform: uppercase; letter-spacing: 1px; }
+    .footer-col ul { list-style: none; }
+    .footer-col li { margin-bottom: 10px; }
+    .footer-col a { font-size: 0.85rem; color: rgba(255,255,255,0.6); transition: color 0.2s; }
+    .footer-col a:hover { color: var(--gold); }
+    .footer-bottom { border-top: 1px solid rgba(255,255,255,0.08); padding-top: 24px; display: flex; justify-content: space-between; font-size: 0.8rem; flex-wrap: wrap; gap: 12px; }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 900px) {
+      .stats-bar { grid-template-columns: repeat(2, 1fr); }
+      .why-grid { grid-template-columns: 1fr; }
+      .route-card { grid-template-columns: 1fr; }
+      .cultural-grid { grid-template-columns: repeat(2, 1fr); }
+      .pricing-grid { grid-template-columns: 1fr; }
+      .price-card.featured { transform: none; }
+      .footer-grid { grid-template-columns: 1fr 1fr; }
+      .nav-links { display: none; }
+      .mobile-toggle { display: block; }
+    }
+    @media (max-width: 600px) {
+      .hero-buttons { flex-direction: column; }
+      .stats-bar { grid-template-columns: 1fr 1fr; }
+      .stat-item { padding: 24px 16px; }
+      .cultural-grid { grid-template-columns: 1fr; }
+      .footer-grid { grid-template-columns: 1fr; }
+    }
+
+    /* ===== ANIMATIONS ===== */
+    .fade-up { opacity: 0; transform: translateY(30px); transition: opacity 0.6s, transform 0.6s; }
+    .fade-up.visible { opacity: 1; transform: translateY(0); }
+  </style>
+</head>
+<body>
+
+<!-- ===== NAV ===== -->
+<nav id="navbar">
+  <div class="nav-inner">
+    <div class="logo">China<span>Science</span>Camp</div>
+    <ul class="nav-links">
+      <li><a href="#programs">Programs</a></li>
+      <li><a href="#why">Why China</a></li>
+      <li><a href="#cultural">Cultural Care</a></li>
+      <li><a href="#pricing">Pricing</a></li>
+      <li><a href="#faq">FAQ</a></li>
+    </ul>
+    <a href="#contact" class="nav-cta">Get a Quote</a>
+    <button class="mobile-toggle" onclick="document.querySelector('.nav-links').style.display = document.querySelector('.nav-links').style.display === 'flex' ? 'none' : 'flex'">☰</button>
+  </div>
+</nav>
+
+<!-- ===== HERO ===== -->
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-badge">🌏 Now Serving Families from GCC Countries</div>
+    <h1>Give Your Child a <span>Front-Row Seat</span> to the Future</h1>
+    <p class="hero-sub">
+      Immersive science and technology camps in China for Middle Eastern families.
+      Visit world-leading tech giants, top universities, and experience the innovation
+      that is shaping tomorrow — all with premium Halal-friendly service.
+    </p>
+    <div class="hero-buttons">
+      <a href="#programs" class="btn-primary">Explore Programs ↓</a>
+      <a href="https://wa.me/17073069636" class="btn-secondary">WhatsApp Us</a>
+    </div>
+  </div>
+</section>
+
+<!-- ===== STATS ===== -->
+<div class="container">
+  <div class="stats-bar">
+    <div class="stat-item fade-up">
+      <div class="stat-number">6</div>
+      <div class="stat-label">GCC Countries Visa-Free</div>
+    </div>
+    <div class="stat-item fade-up">
+      <div class="stat-number">50+</div>
+      <div class="stat-label">Families Served in 2025</div>
+    </div>
+    <div class="stat-item fade-up">
+      <div class="stat-number">3</div>
+      <div class="stat-label">Tech Cities Covered</div>
+    </div>
+    <div class="stat-item fade-up">
+      <div class="stat-number">100%</div>
+      <div class="stat-label">Halal-Friendly Promise</div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== WHY CHINA ===== -->
+<section class="why-china" id="why">
+  <div class="container">
+    <div class="fade-up">
+      <div class="section-tag">Why China</div>
+      <h2 class="section-title">Why Forward-Thinking Families Choose China</h2>
+      <p class="section-desc">
+        China is no longer just a manufacturing hub — it's the global frontier of AI,
+        electric vehicles, robotics, and digital innovation. Give your child the edge of seeing it firsthand.
+      </p>
+    </div>
+    <div class="why-grid">
+      <div class="why-card fade-up">
+        <div class="why-icon" style="background:rgba(10,36,99,0.08)">🤖</div>
+        <h3>World #1 in AI & Robotics</h3>
+        <p>Home to DJI (70% global drone market), BYD (world's largest EV maker), and leading AI research centers.</p>
+      </div>
+      <div class="why-card fade-up">
+        <div class="why-icon" style="background:rgba(201,168,76,0.12)">💰</div>
+        <h3>50-60% More Affordable</h3>
+        <p>Premium service at a fraction of the cost of equivalent US or UK programs. Your money goes 2× further.</p>
+      </div>
+      <div class="why-card fade-up">
+        <div class="why-icon" style="background:rgba(46,204,113,0.1)">🕌</div>
+        <h3>Halal & Cultural Care</h3>
+        <p>Dedicated Muslim-friendly service: Halal dining, prayer facilities, and culturally sensitive guides throughout.</p>
+      </div>
+      <div class="why-card fade-up">
+        <div class="why-icon" style="background:rgba(10,36,99,0.08)">🎓</div>
+        <h3>Top-Tier Universities</h3>
+        <p>Visit Shanghai Jiao Tong, Fudan, SUSTech, and Shenzhen University — rising stars in global rankings.</p>
+      </div>
+      <div class="why-card fade-up">
+        <div class="why-icon" style="background:rgba(201,168,76,0.12)">🚄</div>
+        <h3>World-Class Infrastructure</h3>
+        <p>High-speed rail, cashless payments, safe cities — experience the future of daily life in real time.</p>
+      </div>
+      <div class="why-card fade-up">
+        <div class="why-icon" style="background:rgba(46,204,113,0.1)">🛂</div>
+        <h3>Visa-Free for GCC Citizens</h3>
+        <p>UAE, Qatar, Saudi, Oman, Kuwait, Bahrain — all visa-free. Simple, fast, no paperwork hassle.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== PROGRAMS ===== -->
+<section class="programs" id="programs">
+  <div class="container">
+    <div class="fade-up">
+      <div class="section-tag">Our Programs</div>
+      <h2 class="section-title">Choose Your Tech Immersion Route</h2>
+      <p class="section-desc">
+        Each route is carefully curated to combine cutting-edge tech visits, university immersion, and premium family experiences.
+      </p>
+    </div>
+
+    <!-- Route 1: Guangdong (Shenzhen + Dongguan) -->
+    <div class="route-card fade-up" style="margin-bottom: 40px;">
+      <div class="route-info">
+        <div class="route-tag">🔥 MOST POPULAR FOR TECH FAMILIES</div>
+        <h3>Guangdong Tech Frontiers</h3>
+        <p class="route-desc">Shenzhen & Dongguan — the global hardware capital. Visit the headquarters of the world's most influential tech companies.</p>
+        <ul class="route-highlights">
+          <li><strong>DJI</strong> — World HQ & drone demonstration (Shenzhen)</li>
+          <li><strong>Huawei</strong> — Campus tour & 5G/AI exhibition (Dongguan/Shenzhen)</li>
+          <li><strong>BYD</strong> — EV production line & future mobility (Shenzhen)</li>
+          <li><strong>Tencent</strong> — Seaside HQ & innovation showcase (Shenzhen)</li>
+          <li><strong>SUSTech</strong> — Top young university campus tour</li>
+          <li><strong>OCT East (东部华侨城)</strong> — eco-adventure,Tea Stream Valley & Grand Canyon Park</li>
+        </ul>
+        <div class="route-meta">
+          <div class="route-meta-item"><strong>7 Days</strong>Duration</div>
+          <div class="route-meta-item"><strong>Shenzhen</strong>Main Base</div>
+          <div class="route-meta-item"><strong>Family</strong>Format</div>
+        </div>
+        <a href="#contact" class="btn-primary" style="display:inline-block;text-decoration:none;">Request Itinerary</a>
+      </div>
+      <div class="route-visual">
+        <div class="route-visual-icon">🏙️</div>
+        <h4>Guangdong Route</h4>
+        <p>DJI · Huawei · BYD · Tencent<br/>The world's hardware capital</p>
+        <div style="margin-top:20px;font-size:0.8rem;opacity:0.5;">Shenzhen · Dongguan</div>
+      </div>
+    </div>
+
+    <!-- Route 2: Shanghai + Hangzhou -->
+    <div class="route-card fade-up">
+      <div class="route-info">
+        <div class="route-tag">CLASSIC CHOICE</div>
+        <h3>Shanghai & Hangzhou Innovation</h3>
+        <p class="route-desc">China's financial and digital capital. Blend of world-class universities, AI startups, and e-commerce innovation.</p>
+        <ul class="route-highlights">
+          <li><strong>Shanghai Jiao Tong Univ.</strong> — Campus immersion & AI lab visit</li>
+          <li><strong>NYU Shanghai</strong> — International campus experience</li>
+          <li><strong>AI Innovation Center</strong> — Hands-on robotics workshop</li>
+          <li><strong>Hangzhou</strong> — E-commerce & digital economy hub</li>
+          <li><strong>Shanghai Disney</strong> — VIP experience (no queuing)</li>
+          <li>Yu Garden, The Bund — cultural heritage tour</li>
+        </ul>
+        <div class="route-meta">
+          <div class="route-meta-item"><strong>7 Days</strong>Duration</div>
+          <div class="route-meta-item"><strong>Shanghai</strong>Main Base</div>
+          <div class="route-meta-item"><strong>Family</strong>Format</div>
+        </div>
+        <a href="#contact" class="btn-primary" style="display:inline-block;text-decoration:none;">Request Itinerary</a>
+      </div>
+      <div class="route-visual">
+        <div class="route-visual-icon">🏯</div>
+        <h4>Shanghai Route</h4>
+        <p>SJTU · NYU Shanghai · AI Labs<br/>Where tradition meets future</p>
+        <div style="margin-top:20px;font-size:0.8rem;opacity:0.5;">Shanghai · Hangzhou</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== CULTURAL CARE ===== -->
+<section class="cultural" id="cultural">
+  <div class="container">
+    <div class="fade-up" style="text-align:center;max-width:700px;margin:0 auto 48px;">
+      <div class="section-tag">Cultural Care</div>
+      <h2 class="section-title">Designed for Muslim Families</h2>
+      <p class="section-desc" style="margin:0 auto;">Every detail considered — because your family's comfort and faith practices matter.</p>
+    </div>
+    <div class="cultural-grid">
+      <div class="cultural-card fade-up">
+        <div class="c-icon">🍽️</div>
+        <h4>100% Halal Dining</h4>
+        <p>All meals from certified Halal restaurants. No pork, no alcohol, no cross-contamination ever.</p>
+      </div>
+      <div class="cultural-card fade-up">
+        <div class="c-icon">🕌</div>
+        <h4>Prayer Facilities</h4>
+        <p>Hotels with Qibla direction marked, prayer mats provided, and nearby mosque information shared daily.</p>
+      </div>
+      <div class="cultural-card fade-up">
+        <div class="c-icon">👨‍👩‍👧‍👦</div>
+        <h4>Private Family Service</h4>
+        <p>Dedicated English-speaking guide, private van, and flexible schedule — no mixed groups, full privacy.</p>
+      </div>
+      <div class="cultural-card fade-up">
+        <div class="c-icon">✈️</div>
+        <h4>Business Class Ready</h4>
+        <p>We arrange business-class flights, premium hotel rooms, and VIP fast-track at all airports.</p>
+      </div>
+      <div class="cultural-card fade-up">
+        <div class="c-icon">🚫</div>
+        <h4>No Pork, No Alcohol</h4>
+        <p>Strict dietary protocol. Mini-fridge in every room stocked with Halal snacks and drinks.</p>
+      </div>
+      <div class="cultural-card fade-up">
+        <div class="c-icon">🧕</div>
+        <h4>Modesty-Respectful</h4>
+        <p>Female family members' privacy respected at all times. Women-only spaces identified in every venue.</p>
+      </div>
+      <div class="cultural-card fade-up">
+        <div class="c-icon">📱</div>
+        <h4>24/7 Arabic-Speaking Support</h4>
+        <p>Emergency hotline with Arabic/English support. We stay connected throughout your journey.</p>
+      </div>
+      <div class="cultural-card fade-up">
+        <div class="c-icon">👶</div>
+        <h4>Kids-Friendly Everywhere</h4>
+        <p>Activities tailored for ages 8-18. Interactive tech workshops, not just passive touring.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== PRICING ===== -->
+<section class="pricing" id="pricing">
+  <div class="container">
+    <div class="fade-up" style="text-align:center;max-width:700px;margin:0 auto 48px;">
+      <div class="section-tag">Pricing</div>
+      <h2 class="section-title">Transparent, All-Inclusive Pricing</h2>
+      <p class="section-desc" style="margin:0 auto;">No hidden fees. Business-class flights, 5-star hotels, all entries, and premium service included.</p>
+    </div>
+    <div class="pricing-grid">
+      <!-- Plan 1 -->
+      <div class="price-card fade-up">
+        <h3>Essential Tech</h3>
+        <div class="price-subtitle">Shanghai + Hangzhou</div>
+        <div class="price-amount">$28,000 <span>/ family</span></div>
+        <div class="price-per">Up to 4 family members · 7 days</div>
+        <ul class="price-features">
+          <li>Shanghai Jiao Tong Univ. visit</li>
+          <li>AI Innovation Center tour</li>
+          <li>Shanghai Disney (standard)</li>
+          <li>4-5★ hotel accommodation</li>
+          <li>Halal dining throughout</li>
+          <li>Private van & guide</li>
+          <li>Business-class flights (optional)</li>
+        </ul>
+        <a href="#contact" class="price-btn">Get Quote</a>
+      </div>
+      <!-- Plan 2: Featured -->
+      <div class="price-card featured fade-up">
+        <h3>Guangdong Flagship</h3>
+        <div class="price-subtitle">Shenzhen + Dongguan</div>
+        <div class="price-amount">$32,000 <span>/ family</span></div>
+        <div class="price-per">Up to 4 family members · 7 days</div>
+        <ul class="price-features">
+          <li>DJI HQ & drone demo</li>
+          <li>Huawei campus & 5G exhibition</li>
+          <li>BYD EV production tour</li>
+          <li>Tencent Seaside HQ visit</li>
+          <li>SUSTech campus tour</li>
+          <li>5★ hotel + business-class flights</li>
+          <li>VIP Disney / theme park</li>
+          <li>Dedicated Arabic-speaking guide</li>
+        </ul>
+        <a href="#contact" class="price-btn">Request Itinerary</a>
+      </div>
+      <!-- Plan 3 -->
+      <div class="price-card fade-up" style="border: 2.5px solid #f0c75e; position: relative;">
+        <div style="position:absolute;top:-13px;left:50%;transform:translateX(-50%);background:#f0c75e;color:#0a1628;padding:3px 18px;border-radius:20px;font-size:0.75rem;font-weight:700;letter-spacing:1px;">MOST FLEXIBLE</div>
+        <h3>Bespoke Program</h3>
+        <div class="price-subtitle">Fully Tailored to Your Family</div>
+        <div class="price-amount" style="font-size:2rem;">Custom <span>/ quote</span></div>
+        <div class="price-per">Flexible duration · Your choice of cities</div>
+        <ul class="price-features">
+          <li><strong>Choose your destinations</strong><br><span style="font-size:0.82rem;color:#b0c4de;">Shenzhen · Dongguan · Shanghai · Hangzhou · Beijing</span></li>
+          <li>Select the tech companies you want to visit</li>
+          <li>Add university admission consulting (extra)</li>
+          <li>Custom cultural & Halal dietary arrangements</li>
+          <li>Private driver & bilingual guide throughout</li>
+          <li>Luxury 5★ or boutique hotels of your choice</li>
+          <li>Wechat/WhatsApp support 24/7 during trip</li>
+        </ul>
+        <a href="#contact" class="price-btn" style="background:#f0c75e;color:#0a1628;">Contact Us</a>
+      </div>
+    </div>
+    <p style="text-align:center;margin-top:28px;font-size:0.9rem;color:var(--text-light);" class="fade-up">
+      💡 <strong>What's included:</strong> Business-class airfare, 5★ hotels, all entrance fees, Halal meals, private transport, dedicated guide, VIP fast-track, travel insurance.
+    </p>
+  </div>
+</section>
+
+<!-- ===== TESTIMONIAL ===== -->
+<section class="testimonial">
+  <div class="container">
+    <div class="testimonial-inner fade-up">
+      <div style="font-size:3rem;color:var(--gold);margin-bottom:20px;">"</div>
+      <p class="testimonial-quote">
+        "My sons were blown away by the DJI headquarters — they got to fly drones themselves!
+        The Halal food arrangements were perfect, and our guide understood our culture completely.
+        This trip changed how my children see their future careers."
+      </p>
+      <div class="testimonial-author">
+        <div class="testimonial-avatar">A.A.</div>
+        <div>
+          <div class="testimonial-name">Mr. Ahmed Al-Qahtani</div>
+          <div class="testimonial-role">Entrepreneur, Abu Dhabi · Family of 4 · Guangdong Route 2025</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== FAQ ===== -->
+<section class="faq" id="faq">
+  <div class="container">
+    <div class="fade-up" style="text-align:center;max-width:700px;margin:0 auto 48px;">
+      <div class="section-tag">FAQ</div>
+      <h2 class="section-title">Common Questions from Parents</h2>
+    </div>
+    <div class="faq-list">
+      <div class="faq-item fade-up">
+        <button class="faq-question" onclick="this.parentElement.classList.toggle('open')">
+          Do GCC citizens need a visa for China?
+          <span class="faq-toggle">+</span>
+        </button>
+        <div class="faq-answer">
+          <strong>No visa required!</strong> Citizens of UAE, Qatar, Saudi Arabia, Oman, Kuwait, and Bahrain enjoy visa-free entry to China for up to 30 days. We assist with all arrival documentation and fast-track clearance.
+        </div>
+      </div>
+      <div class="faq-item fade-up">
+        <button class="faq-question" onclick="this.parentElement.classList.toggle('open')">
+          How do you ensure Halal dining?
+          <span class="faq-toggle">+</span>
+        </button>
+        <div class="faq-answer">
+          We partner exclusively with certified Halal restaurants and hotels with Halal-certified kitchens. Our team pre-verifies every meal location. No pork, no alcohol, and no cross-contamination — guaranteed. We also provide a list of certified restaurants to families in advance.
+        </div>
+      </div>
+      <div class="faq-item fade-up">
+        <button class="faq-question" onclick="this.parentElement.classList.toggle('open')">
+          What age group is this suitable for?
+          <span class="faq-toggle">+</span>
+        </button>
+        <div class="faq-answer">
+          Our programs are designed for families with children aged <strong>8-18</strong>. Activities are interactive (not just passive touring) — drone flying, robot programming, EV factory tours — so children stay engaged throughout. We can also tailor content for university-age students.
+        </div>
+      </div>
+      <div class="faq-item fade-up">
+        <button class="faq-question" onclick="this.parentElement.classList.toggle('open')">
+          Can we customize the itinerary?
+          <span class="faq-toggle">+</span>
+        </button>
+        <div class="faq-answer">
+          Absolutely. Every family is different. Want more university focus? More tech company visits? Shopping days? We design a fully customized itinerary after a free consultation call. Many families also add business matching sessions if the parents have industry interests.
+        </div>
+      </div>
+      <div class="faq-item fade-up">
+        <button class="faq-question" onclick="this.parentElement.classList.toggle('open')">
+          What's the best time of year to come?
+          <span class="faq-toggle">+</span>
+        </button>
+        <div class="faq-answer">
+          <strong>Spring (Mar-May)</strong> and <strong>Autumn (Sep-Nov)</strong> are ideal — mild weather, clear skies, and tech companies are in full operation. Summer (Jul-Aug) is also popular for school breaks, though hotter. We do <strong>not</strong> operate during Ramadan daylight hours for obviously reasons — we adjust the itinerary to respect fasting schedules.
+        </div>
+      </div>
+      <div class="faq-item fade-up">
+        <button class="faq-question" onclick="this.parentElement.classList.toggle('open')">
+          How far in advance should we book?
+          <span class="faq-toggle">+</span>
+        </button>
+        <div class="faq-answer">
+          We recommend booking <strong>2-3 months in advance</strong> for peak seasons (spring/autumn) to secure business-class seats and 5★ hotel rooms. For summer, 3-4 months ahead is safer. That said, we've pulled off arrangements in 3 weeks — just ask!
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== CTA / CONTACT ===== -->
+<section class="cta" id="contact">
+  <div class="container">
+    <div class="fade-up">
+      <h2>Ready to Give Your Child a Life-Changing Experience?</h2>
+      <p>Book a free 15-minute consultation call. We'll discuss your family's interests, answer all questions, and design a personalized itinerary.</p>
+      <div class="cta-buttons">
+        <a href="https://wa.me/8613800000000" class="cta-whatsapp">📱 WhatsApp Us Directly</a>
+        <a href="mailto:welcome@uichain.org" class="cta-email">✉️ Email for Brochure</a>
+      </div>
+      <p style="margin-top:28px;font-size:0.85rem;color:rgba(255,255,255,0.5);">
+        📧 welcome@uichain.org &nbsp;|&nbsp; 📱 WhatsApp: +1 707-306-9636
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ===== FOOTER ===== -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-grid">
+      <div>
+        <div class="footer-brand">China<span>Science</span>Camp</div>
+        <p class="footer-desc">Premium tech immersion experiences in China for Middle Eastern families. Visa-free, Halal-friendly, future-focused.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Programs</h4>
+        <ul>
+          <li><a href="#programs">Guangdong Tech Route</a></li>
+          <li><a href="#programs">Shanghai & Hangzhou</a></li>
+          <li><a href="#programs">Ultimate China (Combined)</a></li>
+          <li><a href="#pricing">Group / School Tours</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Destinations</h4>
+        <ul>
+          <li><a href="#">Shenzhen</a></li>
+          <li><a href="#">Dongguan</a></li>
+          <li><a href="#">Shanghai</a></li>
+          <li><a href="#">Hangzhou</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Contact</h4>
+        <ul>
+          <li><a href="mailto:welcome@uichain.org">welcome@uichain.org</a></li>
+          <li><a href="https://wa.me/17073069636">WhatsApp: +1 707-306-9636</a></li>
+          <li><a href="#">WeChat: ChinaScienceCamp</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 China Science Camp. All rights reserved.</span>
+      <span>Made with care for Middle Eastern families 🌙</span>
+    </div>
+  </div>
+</footer>
+
+<!-- ===== SCRIPTS ===== -->
+<script>
+  // Navbar scroll effect
+  window.addEventListener('scroll', () => {
+    document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 50);
+  });
+
+  // Fade-up animation on scroll
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) entry.target.classList.add('visible');
+    });
+  }, { threshold: 0.15 });
+  document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>

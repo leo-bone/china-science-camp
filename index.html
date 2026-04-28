@@ -62,12 +62,18 @@
     /* ===== HERO ===== */
     .hero {
       min-height: 100vh; display: flex; align-items: center;
-      background: linear-gradient(135deg, var(--blue) 0%, #16213e 60%, #0f3460 100%);
+      background: linear-gradient(135deg, rgba(10,36,99,0.92) 0%, rgba(22,33,62,0.88) 50%, rgba(15,52,96,0.92) 100%),
+                  url('https://images.unsplash.com/photo-1518005068251-37900150dfca?w=1920&q=85') center/cover no-repeat;
       color: #fff; position: relative; overflow: hidden;
     }
     .hero::before {
       content: ''; position: absolute; inset: 0;
       background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="%23ffffff" fill-opacity="0.03" d="M0,192L48,176C96,160,192,128,288,138.7C384,149,480,203,576,213.3C672,224,768,192,864,176C960,160,1056,160,1152,149.3C1248,139,1344,117,1392,106.7L1440,96L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path></svg>') bottom / cover no-repeat;
+      pointer-events: none;
+    }
+    .hero::after {
+      content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+      background: radial-gradient(ellipse at 20% 50%, rgba(201,168,76,0.15) 0%, transparent 60%);
       pointer-events: none;
     }
     .hero-inner { max-width: 1200px; margin: 0 auto; padding: 120px 24px 80px; position: relative; z-index: 1; }
@@ -165,6 +171,112 @@
     .route-visual-icon { font-size: 4rem; margin-bottom: 20px; }
     .route-visual h4 { font-size: 1.3rem; font-weight: 700; margin-bottom: 8px; }
     .route-visual p { font-size: 0.9rem; opacity: 0.7; }
+
+    /* ===== ROUTE VISUAL ENHANCED ===== */
+    .route-visual {
+      position: relative;
+      overflow: hidden;
+      min-height: 350px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 0 20px 20px 0;
+    }
+    .guangdong-visual {
+      background: linear-gradient(135deg, rgba(10,36,99,0.92) 0%, rgba(15,52,96,0.88) 50%, rgba(10,36,99,0.92) 100%),
+                  url('https://images.unsplash.com/photo-1598971861713-54ad16a7e72e?w=1200&q=85') center/cover no-repeat;
+    }
+    .shanghai-visual {
+      background: linear-gradient(135deg, rgba(10,36,99,0.92) 0%, rgba(15,52,96,0.88) 50%, rgba(10,36,99,0.92) 100%),
+                  url('https://images.unsplash.com/photo-1538428494232-9c0d8a3ab403?w=1200&q=85') center/cover no-repeat;
+    }
+    .route-visual-overlay {
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: linear-gradient(180deg, rgba(10,36,99,0.1) 0%, rgba(10,36,99,0.3) 100%);
+    }
+    .route-visual-content {
+      position: relative;
+      z-index: 2;
+      text-align: center;
+      padding: 30px;
+      width: 100%;
+    }
+    .company-showcase {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      margin-bottom: 24px;
+      flex-wrap: wrap;
+    }
+    .company-badge {
+      background: rgba(255,255,255,0.15);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255,255,255,0.25);
+      border-radius: 12px;
+      padding: 10px 16px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.3s ease;
+      cursor: default;
+    }
+    .company-badge:hover {
+      background: rgba(255,255,255,0.25);
+      transform: translateY(-3px);
+      box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+    }
+    .company-badge.dji { border-color: rgba(201,168,76,0.5); }
+    .company-badge.huawei { border-color: rgba(255,255,255,0.3); }
+    .company-badge.byd { border-color: rgba(46,204,113,0.5); }
+    .company-badge.tencent { border-color: rgba(0,180,255,0.5); }
+    .company-badge.sjtu { border-color: rgba(201,168,76,0.5); }
+    .company-badge.nyu { border-color: rgba(255,255,255,0.3); }
+    .company-badge.ai { border-color: rgba(0,212,255,0.5); }
+    .company-badge.disney { border-color: rgba(255,105,180,0.5); }
+    .company-icon {
+      font-size: 1.4rem;
+    }
+    .company-name {
+      color: #fff;
+      font-weight: 700;
+      font-size: 0.85rem;
+      letter-spacing: 0.5px;
+    }
+    .route-visual-content h4 {
+      color: #f0d78c;
+      font-size: 1.8rem;
+      font-weight: 800;
+      margin-bottom: 8px;
+      text-shadow: 0 2px 10px rgba(0,0,0,0.3);
+    }
+    .route-tagline {
+      color: rgba(255,255,255,0.9);
+      font-size: 1rem;
+      margin-bottom: 16px;
+      font-weight: 500;
+    }
+    .route-location {
+      color: rgba(255,255,255,0.6);
+      font-size: 0.85rem;
+      letter-spacing: 0.5px;
+    }
+
+    @media (max-width: 900px) {
+      .route-visual {
+        border-radius: 0 0 20px 20px;
+        min-height: 300px;
+      }
+      .company-showcase {
+        gap: 8px;
+      }
+      .company-badge {
+        padding: 8px 12px;
+      }
+      .company-name {
+        font-size: 0.75rem;
+      }
+    }
 
     /* ===== CULTURAL ===== */
     .cultural { background: var(--blue); color: #fff; }
@@ -364,6 +476,163 @@
   </div>
 </div>
 
+<!-- ===== TECH PARTNERS SHOWCASE ===== -->
+<section class="tech-partners">
+  <div class="container">
+    <div class="partners-header fade-up">
+      <div class="section-tag">Our Partners</div>
+      <h2 class="section-title">World-Class Tech Companies Await</h2>
+      <p class="section-desc">Exclusive access to headquarters and innovation centers of global technology leaders.</p>
+    </div>
+    <div class="partners-grid">
+      <div class="partner-card fade-up">
+        <div class="partner-image">
+          <img src="https://images.unsplash.com/photo-1473968512647-3e447244af8f?w=600&q=80" alt="DJI Drone" loading="lazy">
+          <div class="partner-overlay">
+            <span class="partner-logo">🚁 DJI</span>
+          </div>
+        </div>
+        <div class="partner-info">
+          <h4>DJI Headquarters</h4>
+          <p>World's largest drone manufacturer. Experience live flight demonstrations and explore the showroom of cutting-edge aerial technology.</p>
+          <span class="partner-location">📍 Shenzhen</span>
+        </div>
+      </div>
+      <div class="partner-card fade-up">
+        <div class="partner-image">
+          <img src="https://images.unsplash.com/photo-1593941707882-a5bba14938c7?w=600&q=80" alt="Electric Vehicle" loading="lazy">
+          <div class="partner-overlay">
+            <span class="partner-logo">🚗 BYD</span>
+          </div>
+        </div>
+        <div class="partner-info">
+          <h4>BYD Auto Plant</h4>
+          <p>World's largest EV maker. Tour the production line where future mobility is built, from battery tech to autonomous driving.</p>
+          <span class="partner-location">📍 Shenzhen</span>
+        </div>
+      </div>
+      <div class="partner-card fade-up">
+        <div class="partner-image">
+          <img src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=600&q=80" alt="5G Network" loading="lazy">
+          <div class="partner-overlay">
+            <span class="partner-logo">📡 Huawei</span>
+          </div>
+        </div>
+        <div class="partner-info">
+          <h4>Huawei Campus</h4>
+          <p>Global leader in 5G and AI. Visit the European-style campus and experience next-generation connectivity exhibitions.</p>
+          <span class="partner-location">📍 Dongguan</span>
+        </div>
+      </div>
+      <div class="partner-card fade-up">
+        <div class="partner-image">
+          <img src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=600&q=80" alt="Technology Innovation" loading="lazy">
+          <div class="partner-overlay">
+            <span class="partner-logo">💬 Tencent</span>
+          </div>
+        </div>
+        <div class="partner-info">
+          <h4>Tencent Seaside HQ</h4>
+          <p>Tech giant behind WeChat. Explore the stunning waterfront headquarters and innovation showcase center.</p>
+          <span class="partner-location">📍 Shenzhen</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+/* ===== TECH PARTNERS SECTION ===== */
+.tech-partners {
+  background: linear-gradient(180deg, #fff 0%, var(--cream) 100%);
+  padding: 80px 0;
+}
+.partners-header {
+  text-align: center;
+  max-width: 700px;
+  margin: 0 auto 48px;
+}
+.partners-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+}
+.partner-card {
+  background: #fff;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+.partner-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 16px 40px rgba(0,0,0,0.12);
+}
+.partner-image {
+  position: relative;
+  height: 180px;
+  overflow: hidden;
+}
+.partner-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s;
+}
+.partner-card:hover .partner-image img {
+  transform: scale(1.05);
+}
+.partner-overlay {
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: linear-gradient(180deg, rgba(10,36,99,0.1) 0%, rgba(10,36,99,0.7) 100%);
+  display: flex;
+  align-items: flex-end;
+  padding: 16px;
+}
+.partner-logo {
+  background: rgba(255,255,255,0.95);
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-weight: 700;
+  font-size: 0.9rem;
+  color: var(--blue);
+}
+.partner-info {
+  padding: 20px;
+}
+.partner-info h4 {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--blue);
+  margin-bottom: 10px;
+}
+.partner-info p {
+  font-size: 0.85rem;
+  color: var(--text-light);
+  line-height: 1.6;
+  margin-bottom: 12px;
+}
+.partner-location {
+  font-size: 0.8rem;
+  color: var(--gold);
+  font-weight: 600;
+}
+@media (max-width: 900px) {
+  .partners-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media (max-width: 600px) {
+  .partners-grid {
+    grid-template-columns: 1fr;
+  }
+  .partner-image {
+    height: 200px;
+  }
+}
+</style>
+
 <!-- ===== WHY CHINA ===== -->
 <section class="why-china" id="why">
   <div class="container">
@@ -433,7 +702,7 @@
           <li><strong>BYD</strong> — EV production line & future mobility (Shenzhen)</li>
           <li><strong>Tencent</strong> — Seaside HQ & innovation showcase (Shenzhen)</li>
           <li><strong>SUSTech</strong> — Top young university campus tour</li>
-          <li><strong>OCT East (东部华侨城)</strong> — eco-adventure,Tea Stream Valley & Grand Canyon Park</li>
+          <li><strong>OCT East (东部华侨城)</strong> — eco-adventure, Tea Stream Valley & Grand Canyon Park</li>
         </ul>
         <div class="route-meta">
           <div class="route-meta-item"><strong>7 Days</strong>Duration</div>
@@ -442,11 +711,31 @@
         </div>
         <a href="#contact" class="btn-primary" style="display:inline-block;text-decoration:none;">Request Itinerary</a>
       </div>
-      <div class="route-visual">
-        <div class="route-visual-icon">🏙️</div>
-        <h4>Guangdong Route</h4>
-        <p>DJI · Huawei · BYD · Tencent<br/>The world's hardware capital</p>
-        <div style="margin-top:20px;font-size:0.8rem;opacity:0.5;">Shenzhen · Dongguan</div>
+      <div class="route-visual guangdong-visual">
+        <div class="route-visual-overlay"></div>
+        <div class="route-visual-content">
+          <div class="company-showcase">
+            <div class="company-badge dji">
+              <span class="company-icon">🚁</span>
+              <span class="company-name">DJI</span>
+            </div>
+            <div class="company-badge huawei">
+              <span class="company-icon">📡</span>
+              <span class="company-name">Huawei</span>
+            </div>
+            <div class="company-badge byd">
+              <span class="company-icon">🚗</span>
+              <span class="company-name">BYD</span>
+            </div>
+            <div class="company-badge tencent">
+              <span class="company-icon">💬</span>
+              <span class="company-name">Tencent</span>
+            </div>
+          </div>
+          <h4>Guangdong Route</h4>
+          <p class="route-tagline">Where Future Technology is Born</p>
+          <div class="route-location">📍 Shenzhen · Dongguan</div>
+        </div>
       </div>
     </div>
 
@@ -471,11 +760,31 @@
         </div>
         <a href="#contact" class="btn-primary" style="display:inline-block;text-decoration:none;">Request Itinerary</a>
       </div>
-      <div class="route-visual">
-        <div class="route-visual-icon">🏯</div>
-        <h4>Shanghai Route</h4>
-        <p>SJTU · NYU Shanghai · AI Labs<br/>Where tradition meets future</p>
-        <div style="margin-top:20px;font-size:0.8rem;opacity:0.5;">Shanghai · Hangzhou</div>
+      <div class="route-visual shanghai-visual">
+        <div class="route-visual-overlay"></div>
+        <div class="route-visual-content">
+          <div class="company-showcase">
+            <div class="company-badge sjtu">
+              <span class="company-icon">🎓</span>
+              <span class="company-name">SJTU</span>
+            </div>
+            <div class="company-badge nyu">
+              <span class="company-icon">🌐</span>
+              <span class="company-name">NYU</span>
+            </div>
+            <div class="company-badge ai">
+              <span class="company-icon">🤖</span>
+              <span class="company-name">AI Lab</span>
+            </div>
+            <div class="company-badge disney">
+              <span class="company-icon">🏰</span>
+              <span class="company-name">Disney</span>
+            </div>
+          </div>
+          <h4>Shanghai Route</h4>
+          <p class="route-tagline">Where Tradition Meets Innovation</p>
+          <div class="route-location">📍 Shanghai · Hangzhou</div>
+        </div>
       </div>
     </div>
   </div>
